@@ -25,25 +25,29 @@ for path in os.listdir(directory):
         
         json_file = open('.student-info.json')
         data = json.load(json_file)
+    
+        # exercise_sheet_number_str = data["serie"]
+        # exercise_sheet_number_str_modified = exercise_sheet_number_str[1:]
+        # exercise_sheet_number = int(exercise_sheet_number_str_modified)
+        # data["serie"] gives as output something like "s05"
+        exercise_sheet_number = int(data["serie"][1:])
         
-        exercise_sheet_number_str = data["serie"]
-        exercise_sheet_number_str_modified = exercise_sheet_number_str[1:]
-        exercise_sheet_number = int(exercise_sheet_number_str_modified)
         surname = data["lastname"]
         new_name = "Analysis_S"+str(exercise_sheet_number)+"_"+surname+".pdf"
         
         for file in glob.glob("*.pdf"):
             os.rename(file, new_name)
         json_file.close()
-        shutil.move( path +'/'+ new_name, directory)
+        shutil.move(path +'/'+ new_name, directory)
 
 os.chdir(directory)
 
 for path in os.listdir(directory):
     if path[0] == "2":
         shutil.rmtree(directory + '/' +path)
-        
-#os.chdir("/Users/sharonputhuparambil/Downloads")
+
+print("Name changed successfully.")
+
 
         
 # TODO: change name of folder
